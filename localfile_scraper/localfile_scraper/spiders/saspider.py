@@ -17,4 +17,17 @@ class SaSpider(scrapy.Spider):
         for th in theader:
             text = th.xpath('.//text()').get()  # Extract text content from <th>
             print(text)
+        
+        trs = response.xpath('//*[@id="main-table"]/tbody/tr')
+        for tr in trs:
+            tds = tr.xpath('.//td')
+            
+            div = tds[0].xpath('.//div//text()').get()
+            if div is not None:
+                print(div)
+            else:
+                print(tds[0].xpath('.//a//text()').get())
+
+            for td in tds[1:]:
+                print(td.xpath('.//text()').get())
 
